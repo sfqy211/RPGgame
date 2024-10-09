@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 832287575}
   - component: {fileID: 832287574}
   - component: {fileID: 832287576}
+  - component: {fileID: 832287577}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -512,6 +513,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &832287577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832287573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24028cdf8f171bf4a8809d38b4c1c28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &869452984
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +704,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7963231943b5050489f79ed28fe34efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackMovement:
+  - {x: 3, y: 1.5}
+  - {x: 1, y: 2.5}
+  - {x: 4, y: 1.5}
   moveSpeed: 8
   jumpForce: 12
   dashCooldown: 1
