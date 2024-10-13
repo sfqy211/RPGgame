@@ -39,7 +39,7 @@ public class Entity : MonoBehaviour
     }
     
     #region Velocity
-    public void ZeroVelocity()
+    public void SetZeroVelocity()
     {
         rb.velocity = new Vector2(0, 0);
     }
