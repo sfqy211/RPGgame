@@ -3192,6 +3192,7 @@ GameObject:
   - component: {fileID: 1022972910}
   - component: {fileID: 1022972913}
   - component: {fileID: 1022972912}
+  - component: {fileID: 1022972914}
   m_Layer: 7
   m_Name: Enemy_Skeletion
   m_TagString: Untagged
@@ -3211,6 +3212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5212e79969608db42a4f4455a8a333fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackDirection: {x: 3.5, y: 6}
+  knockbackDuration: 0.07
+  attackCheck: {fileID: 1703807526}
+  attackCheckRadius: 0.8
   groundCheck: {fileID: 348441341}
   groundCheckDistance: 0.4
   wallCheck: {fileID: 922588813}
@@ -3243,6 +3248,7 @@ Transform:
   - {fileID: 1227182107}
   - {fileID: 348441341}
   - {fileID: 922588813}
+  - {fileID: 1703807526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1022972912
@@ -3305,7 +3311,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -3317,6 +3323,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1022972914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022972909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1453e65762aa46046a70702b933573b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.15
+  hitMat: {fileID: 2100000, guid: 9baa6844a9cecd54d8b7dbe2405dd11d, type: 2}
+--- !u!1 &1072284131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1072284132}
+  m_Layer: 6
+  m_Name: AttackCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1072284132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072284131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.13, y: -0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1258312120}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1159444219
 GameObject:
   m_ObjectHideFlags: 3
@@ -9366,6 +9417,7 @@ GameObject:
   - component: {fileID: 1258312121}
   - component: {fileID: 1258312123}
   - component: {fileID: 1258312122}
+  - component: {fileID: 1258312124}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -9389,6 +9441,7 @@ Transform:
   - {fileID: 832287575}
   - {fileID: 104895675}
   - {fileID: 492972650}
+  - {fileID: 1072284132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1258312121
@@ -9403,6 +9456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7963231943b5050489f79ed28fe34efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackDirection: {x: 0, y: 0}
+  knockbackDuration: 0
+  attackCheck: {fileID: 1072284132}
+  attackCheckRadius: 0.8
   groundCheck: {fileID: 104895675}
   groundCheckDistance: 0.15
   wallCheck: {fileID: 492972650}
@@ -9481,6 +9538,20 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06811595, y: -0.30992746}
   m_Size: {x: 0.84057975, y: 2.137536}
   m_Direction: 0
+--- !u!114 &1258312124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258312118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1453e65762aa46046a70702b933573b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.2
+  hitMat: {fileID: 2100000, guid: 9baa6844a9cecd54d8b7dbe2405dd11d, type: 2}
 --- !u!1 &1566687183
 GameObject:
   m_ObjectHideFlags: 0
@@ -9665,6 +9736,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffect: 1
+--- !u!1 &1703807525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703807526}
+  m_Layer: 7
+  m_Name: AttackCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703807526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703807525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9, y: 0.452, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1022972911}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

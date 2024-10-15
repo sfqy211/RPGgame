@@ -15,6 +15,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        xInput = 0;     //用于修复攻击时会自动转向
 
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
             comboCounter = 0;
