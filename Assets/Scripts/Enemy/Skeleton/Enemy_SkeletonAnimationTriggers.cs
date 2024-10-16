@@ -21,5 +21,7 @@ public class Enemy_SkeletonAnimationTriggers : MonoBehaviour
                 hit.GetComponent<Player>().Damage();
         }
     }
-    
+
+    private void OpenCounterWindow() => enemy.OpenCounterAttackWindow();
+    private  void CloseCounterWindow() => enemy.CloseCounterAttackWindow();
 }
