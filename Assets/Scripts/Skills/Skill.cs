@@ -5,19 +5,19 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     [SerializeField] private float cooldown;
-    protected float CooldownTimer;
+    protected float cooldownTimer;
     
-    protected virtual void Start()
+    protected virtual void Update()
     {
-        CooldownTimer -= Time.deltaTime;
+        cooldownTimer -= Time.deltaTime;
     }
 
     public virtual bool CanUseSkill()
     {
-        if (CooldownTimer < 0)
+        if (cooldownTimer < 0)
         {
             UseSkill();
-            CooldownTimer = cooldown;
+            cooldownTimer = cooldown;
             return true;
         }
         
