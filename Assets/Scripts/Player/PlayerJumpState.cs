@@ -28,5 +28,9 @@ public class PlayerJumpState : PlayerState
         {
             stateMachine.ChangeState(player.airState);
         }
+        
+        //检测是否接触墙面
+        if(player.IsWallDetected())
+            stateMachine.ChangeState(player.wallSlide);
     }
 }

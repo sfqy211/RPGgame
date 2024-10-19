@@ -25,6 +25,8 @@ public class PlayerWallJumpState : PlayerState
     public override void Update()
     {
         base.Update();
+        
+        
 
         if (stateTimer < 0)
         {
