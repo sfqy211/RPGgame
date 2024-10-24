@@ -12,8 +12,9 @@ public class Player : Entity
     
     public bool isBusy { get; private set; }
     [Header("Move info")]
-    public  float moveSpeed = 12f;
-    public   float jumpForce;
+    public float moveSpeed = 12f;
+    public float jumpForce;
+    public float swordReturnImpact; 
     
     [Header("Dash info")]
     public float dashSpeed;
@@ -22,7 +23,7 @@ public class Player : Entity
     
     
     public SkillManager skill { get; private set; }
-    public GameObject sword;// { get; private set; }
+    public GameObject sword { get; private set; }
 
     
     #region States
@@ -81,6 +82,8 @@ public class Player : Entity
         stateMachine.currentState.Update();
         
         CheckForDashInput();
+        
+        
     }
     
     public void AssignNewSword(GameObject _newsword)
@@ -88,8 +91,9 @@ public class Player : Entity
         sword = _newsword;
     }
 
-    public void ClearTheSword()
+    public void CatchTheSword()
     {
+        stateMachine.ChangeState(catchSword);
         Destroy(sword);
     }
 

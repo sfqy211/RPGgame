@@ -44,7 +44,9 @@ public class Entity : MonoBehaviour
     
     protected virtual void Update()
     {
-        
+        //下面这行代码保证不会因为输入法导致游戏暂停
+        if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+            InputLanguageManager.SwitchToEnglishInput();
     }
     
     public virtual void Damage()

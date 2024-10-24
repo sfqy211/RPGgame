@@ -9686,9 +9686,9 @@ MonoBehaviour:
   counterAttackDuration: 0.2
   moveSpeed: 8
   jumpForce: 12
+  swordReturnImpact: 3.25
   dashSpeed: 25
   dashDuration: 0.2
-  sword: {fileID: 0}
 --- !u!50 &1258312122
 Rigidbody2D:
   serializedVersion: 4
@@ -10153,6 +10153,10 @@ PrefabInstance:
     - target: {fileID: 1207949179157545153, guid: cabb75194827c61479e322f9b25549d9, type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207949179157545153, guid: cabb75194827c61479e322f9b25549d9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721948017089555967, guid: cabb75194827c61479e322f9b25549d9, type: 3}
       propertyPath: m_LocalPosition.x
