@@ -403,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 344325042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.2, y: -2, z: 0}
+  m_LocalPosition: {x: -44.15, y: -1.84, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3042,7 +3042,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6004906, y: 4.1005573, z: -9.94505}
+  m_LocalPosition: {x: -24.1878, y: 4.1005573, z: -9.94505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3154,7 +3154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b40fa1c1a7a5ed46aeab32ba2209eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 1
+  cooldown: 0
   clonePrefab: {fileID: 7594451217110135967, guid: a488eafd7b0bb1a4aa314bee76f2151c, type: 3}
   cloneDuration: 1.5
   canAttack: 1
@@ -3171,9 +3171,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
+  swordType: 3
+  bounceAmount: 4
+  bounceGravity: 1
+  pierceAmount: 2
+  pierceGravity: 1
+  maxTravelDistance: 7
+  spinDuration: 2
+  spinGravity: 1
   swordPrefab: {fileID: 1207949179157545153, guid: cabb75194827c61479e322f9b25549d9, type: 3}
   launchForce: {x: 35, y: 25}
-  swordGravity: 4.5
+  swordGravity: 1
   numberOfDots: 20
   spaceBetweenDots: 0.07
   dotPrefab: {fileID: 4085370430939929422, guid: 1186174d70ae27e408f288619378abd1, type: 3}
@@ -3446,7 +3454,7 @@ Transform:
   m_GameObject: {fileID: 843830282}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6004906, y: 4.1005573, z: -9.94505}
+  m_LocalPosition: {x: -24.1878, y: 4.1005573, z: -9.94505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3581,7 +3589,7 @@ Transform:
   m_GameObject: {fileID: 1022972909}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.74, y: -1.98, z: 0}
+  m_LocalPosition: {x: -38.95, y: -2.22, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9956,7 +9964,7 @@ Transform:
   m_GameObject: {fileID: 1258312118}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.62, y: -1.48, z: 0}
+  m_LocalPosition: {x: -50.18, y: -1.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
