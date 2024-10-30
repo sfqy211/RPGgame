@@ -2965,7 +2965,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.1878, y: 4.1005573, z: -9.94505}
+  m_LocalPosition: {x: -24.18778, y: 4.1005573, z: -9.94505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3531,7 +3531,7 @@ Transform:
   m_GameObject: {fileID: 843830282}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.1878, y: 4.1005573, z: -9.94505}
+  m_LocalPosition: {x: -24.18778, y: 4.1005573, z: -9.94505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10343,10 +10343,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hotKeyPrefab: {fileID: 1253386525}
-  keyCodeList: 7100000077000000650000007200000074000000
+  keyCodeList: 7100000077000000
   maxSize: 15
   growSpeed: 1
+  shrinkSpeed: 3
   canGrow: 0
+  canShrink: 0
+  amountOfAttacks: 4
+  cloneAttackCooldown: 0.3
 --- !u!212 &1491405482
 SpriteRenderer:
   m_ObjectHideFlags: 0
