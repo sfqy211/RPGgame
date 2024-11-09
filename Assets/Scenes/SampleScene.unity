@@ -10294,7 +10294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &1491405480
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10344,13 +10344,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hotKeyPrefab: {fileID: 1253386525}
   keyCodeList: 7100000077000000
-  maxSize: 15
-  growSpeed: 1
-  shrinkSpeed: 3
-  canGrow: 0
-  canShrink: 0
-  amountOfAttacks: 4
-  cloneAttackCooldown: 0.3
 --- !u!212 &1491405482
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10939,6 +10932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AimDot
       objectReference: {fileID: 0}
+    - target: {fileID: 4085370430939929422, guid: 1186174d70ae27e408f288619378abd1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10955,6 +10952,10 @@ PrefabInstance:
     - target: {fileID: 5752072378307631847, guid: bb31a5cb49339c14a8046662d2134a15, type: 3}
       propertyPath: m_Name
       value: Blackhole_HotKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 5752072378307631847, guid: bb31a5cb49339c14a8046662d2134a15, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6090927358514301778, guid: bb31a5cb49339c14a8046662d2134a15, type: 3}
       propertyPath: m_LocalPosition.x
