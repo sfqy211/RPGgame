@@ -3018,6 +3018,7 @@ GameObject:
   - component: {fileID: 586664014}
   - component: {fileID: 586664017}
   - component: {fileID: 586664018}
+  - component: {fileID: 586664019}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -3113,6 +3114,25 @@ MonoBehaviour:
   spaceBetweenDots: 0.07
   dotPrefab: {fileID: 4085370430939929422, guid: 1186174d70ae27e408f288619378abd1, type: 3}
   dotsParent: {fileID: 1095002431}
+--- !u!114 &586664019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586664013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8928fadb53f62574fa2975f3a889db35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 5
+  amountOfAttacks: 5
+  cloneCooldown: 0.35
+  blackHolePrefab: {fileID: 7024471119540920861, guid: 08dbd501f89267649b9b47e6dd5afa96, type: 3}
+  maxSize: 15
+  growSpeed: 3
+  shrinkSpeed: 6
 --- !u!1 &598405666
 GameObject:
   m_ObjectHideFlags: 0

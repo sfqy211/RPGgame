@@ -65,6 +65,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         DestoryHotKey();
         cloneAttackReleased = true;
         canCreantHotKey = false;
+        PlayerManager.instance.player.MakeTransparent(true);
     }
 
     private void CloneAttackLogic()
@@ -91,10 +92,16 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
             if (amountOfAttacks <= 0)
             {
-                canShrink = true;
-                cloneAttackReleased = false;
+                Invoke("FinishBlackHoleAbility", 1.5f);
             }
         }
+    }
+
+    private void FinishBlackHoleAbility()
+    {
+        PlayerManager.instance.player.ExitBlackholeAbility();
+        canShrink = true;
+        cloneAttackReleased = false;
     }
 
     private void DestoryHotKey()
@@ -117,7 +124,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.GetComponent<Enemy>() != null)
             collision.GetComponent<Enemy>().FreezeTime(false);

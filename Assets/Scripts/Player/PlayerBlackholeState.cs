@@ -6,6 +6,7 @@ public class PlayerBlackholeState : PlayerState
 {
     private float flyTime = .4f;
     private bool skillUsed;
+    private float defaultGravity;
 
     public PlayerBlackholeState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -15,11 +16,20 @@ public class PlayerBlackholeState : PlayerState
     {
         base.Enter();
 
+        defaultGravity = player.rb.gravityScale;
+        
         skillUsed = false;
         stateTimer = flyTime;
         rb.gravityScale = 0;
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+        player.rb.gravityScale = defaultGravity;
+        player.MakeTransparent(false);
+    }
+    
     public override void Update()
     {
         base.Update();
@@ -33,17 +43,17 @@ public class PlayerBlackholeState : PlayerState
             if (!skillUsed)
             {
                 Debug.Log("释放黑洞");
-                skillUsed = true;
+                if (player.skill.blackhole.CanUseSkill())
+                {
+                    skillUsed = true;
+                }
             }
+            // 当一个黑洞技能的所有攻击结束后退出该状态
+            
         }
         
     }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
+    
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
