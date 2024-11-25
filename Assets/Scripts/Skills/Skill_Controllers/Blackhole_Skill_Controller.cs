@@ -12,11 +12,13 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     private float maxSize;
     private float growSpeed;
     private float shrinkSpeed;
+    private float blackHoleTimer;
     
     private bool canGrow = true;
     private bool canShrink;
-    private bool canCreantHotKey = true;
+    private bool canCreatHotKey = true;
     private bool cloneAttackReleased;
+    private bool playerCanDisapear = true;
     
     private int amountOfAttacks = 4;
     private float cloneAttackCooldown = .3f;
@@ -24,19 +26,32 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     private List<Transform> targets = new List<Transform>();
     private List<GameObject> createdHotKey = new List<GameObject>();
+    
+    public bool playerCanExitState { get; private set; }
 
-    public void SetupBlackhole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown)
+    public void SetupBlackhole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown, float _blackHoleDuration)
     {
         maxSize = _maxSize;
         growSpeed = _growSpeed;
         shrinkSpeed = _shrinkSpeed;
         amountOfAttacks = _amountOfAttacks;
         cloneAttackCooldown = _cloneAttackCooldown;
+        blackHoleTimer = _blackHoleDuration;
     }
     
     private void Update()
     {
         cloneAttackTimer -= Time.deltaTime;
+        blackHoleTimer -= Time.deltaTime;
+        
+        if (blackHoleTimer < 0)
+        {
+            blackHoleTimer = Mathf.Infinity;
+            if (targets.Count > 0)
+                ReleaseCloneAttack();
+            else
+                FinishBlackHoleAbility();
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -54,23 +69,30 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         {
                 transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(-1, -1), shrinkSpeed * Time.deltaTime);
                 if (transform.localScale.x < 0)
-                {
                     Destroy(gameObject);
-                }
         }
     }
 
     private void ReleaseCloneAttack()
     {
+        if (targets.Count <= 0)
+            return;
+        
         DestoryHotKey();
         cloneAttackReleased = true;
-        canCreantHotKey = false;
-        PlayerManager.instance.player.MakeTransparent(true);
+        canCreatHotKey = false;
+        if (playerCanDisapear)
+        {
+            playerCanDisapear = false;
+            PlayerManager.instance.player.MakeTransparent(true);
+            
+        }
+        
     }
 
     private void CloneAttackLogic()
     {
-        if (cloneAttackTimer < 0 && cloneAttackReleased)
+        if (cloneAttackTimer < 0 && cloneAttackReleased && amountOfAttacks > 0)
         {
             // 检查 targets 不为空且还有攻击次数
             // if (!(targets.Count > 0 && amountOfAttacks > 0))
@@ -91,17 +113,18 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             amountOfAttacks--;
 
             if (amountOfAttacks <= 0)
-            {
-                Invoke("FinishBlackHoleAbility", 1.5f);
-            }
+                Invoke("FinishBlackHoleAbility", 1.2f);
         }
     }
 
     private void FinishBlackHoleAbility()
     {
-        PlayerManager.instance.player.ExitBlackholeAbility();
+        DestoryHotKey();
+        playerCanExitState = true;
         canShrink = true;
         cloneAttackReleased = false;
+        // 此处注释的是退出黑洞技能的功能，已用其他方法实现
+        // PlayerManager.instance.player.ExitBlackholeAbility();
     }
 
     private void DestoryHotKey()
@@ -109,9 +132,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         if(createdHotKey.Count < 0)
                 return;
         for (int i = 0; i < createdHotKey.Count; i++)
-        {
             Destroy(createdHotKey[i]);;
-        }
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -138,7 +159,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             return;
         }
         
-        if(!canCreantHotKey)
+        if(!canCreatHotKey)
             return;
         
         GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0, 2),

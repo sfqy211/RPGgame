@@ -49,7 +49,10 @@ public class PlayerBlackholeState : PlayerState
                 }
             }
             // 当一个黑洞技能的所有攻击结束后退出该状态
-            
+            if (player.skill.blackhole.SkillCompleted())
+            {
+                stateMachine.ChangeState(player.airState);
+            }
         }
         
     }

@@ -94,10 +94,6 @@ public class Player : Entity
         stateMachine.ChangeState(catchSword);
         Destroy(sword);
     }
-    public void ExitBlackholeAbility()
-    {
-        stateMachine.ChangeState(airState);
-    }
     public IEnumerator BusyFor(float _seconds)
     {
         isBusy = true;
