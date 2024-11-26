@@ -85,7 +85,6 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         {
             playerCanDisapear = false;
             PlayerManager.instance.player.MakeTransparent(true);
-            
         }
         
     }
@@ -105,9 +104,9 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             float xOffset;
 
             if (Random.Range(0, 100) > 50)
-                xOffset = 2;
+                xOffset = 1;
             else
-                xOffset = -2;
+                xOffset = -1;
             
             SkillManager.instance.clone.CreatClone(targets[randomIndex], new Vector3(xOffset, 0));
             amountOfAttacks--;
