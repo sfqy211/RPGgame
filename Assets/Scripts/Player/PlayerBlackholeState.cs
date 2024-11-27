@@ -43,13 +43,13 @@ public class PlayerBlackholeState : PlayerState
             if (!skillUsed)
             {
                 Debug.Log("释放黑洞");
-                if (player.skill.blackhole.CanUseSkill())
+                if (player.skill.blackHole.CanUseSkill())
                 {
                     skillUsed = true;
                 }
             }
             // 当一个黑洞技能的所有攻击结束后退出该状态
-            if (player.skill.blackhole.SkillCompleted())
+            if (player.skill.blackHole.SkillCompleted())
             {
                 stateMachine.ChangeState(player.airState);
             }
