@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Skill : MonoBehaviour
@@ -37,7 +35,7 @@ public class Skill : MonoBehaviour
         //一些特殊的技能
     }
 
-    protected virtual Transform FindCloestEnemy(Transform _checkTransform)
+    protected virtual Transform FindClosestEnemy(Transform _checkTransform)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_checkTransform.position, 25);
         

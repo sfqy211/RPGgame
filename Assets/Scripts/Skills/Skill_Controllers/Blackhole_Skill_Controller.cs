@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+// using Random = UnityEngine.Random;
 
 public class Blackhole_Skill_Controller : MonoBehaviour
 {
@@ -37,6 +35,8 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         amountOfAttacks = _amountOfAttacks;
         cloneAttackCooldown = _cloneAttackCooldown;
         blackHoleTimer = _blackHoleDuration;
+        if(SkillManager.instance.clone.crystalInsteadOfClone)
+            playerCanDisapear = false;
     }
     
     private void Update()
@@ -54,9 +54,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.R))
-        {
             ReleaseCloneAttack();
-        }
 
         CloneAttackLogic();
         
@@ -95,24 +93,31 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         {
             // 检查 targets 不为空且还有攻击次数
             // if (!(targets.Count > 0 && amountOfAttacks > 0))
-            // {
             //     return true;
-            // }
             cloneAttackTimer = cloneAttackCooldown;
             int randomIndex = Random.Range(0, targets.Count);
 
             float xOffset;
 
             if (Random.Range(0, 100) > 50)
-                xOffset = 1;
+                xOffset = 2;
             else
-                xOffset = -1;
-            
+                xOffset = -2;
+            if(SkillManager.instance.clone.crystalInsteadOfClone)
+            {
+                SkillManager.instance.crystal.CreateCrystal();
+                SkillManager.instance.crystal.CurrentCrystalChooseRandomTarget();
+            }
+            else
+            {
+                SkillManager.instance.clone.CreatClone(targets[randomIndex], new Vector3(xOffset, 0));
+            }
+
             SkillManager.instance.clone.CreatClone(targets[randomIndex], new Vector3(xOffset, 0));
             amountOfAttacks--;
 
             if (amountOfAttacks <= 0)
-                Invoke("FinishBlackHoleAbility", 1.2f);
+                Invoke(nameof(FinishBlackHoleAbility), 1f);
         }
     }
 
@@ -129,9 +134,9 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     private void DestoryHotKey()
     {
         if(createdHotKey.Count < 0)
-                return;
+            return;
         for (int i = 0; i < createdHotKey.Count; i++)
-            Destroy(createdHotKey[i]);;
+            Destroy(createdHotKey[i]);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
