@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Entity : MonoBehaviour
 {
@@ -10,13 +11,15 @@ public class Entity : MonoBehaviour
     public EntityFX fx { get; private set; } 
     public SpriteRenderer sr { get; private set; }
     public CharacterStats stats { get; private set; }
+    public CapsuleCollider2D cd { get; private set; }
 
     #endregion
     
-    [Header("Knochback info")]
-    [SerializeField] protected Vector2 knockbackDirection;
+    [FormerlySerializedAs("knockBackDirection")]
+    [Header("KnockBack info")]
+    [SerializeField] protected Vector2 knockBackDirection;
     protected bool isKnocked;
-    [SerializeField] protected float knockbackDuration;
+    [SerializeField] protected float knockBackDuration;
     
     [Header("Collision info")]
     public Transform attackCheck;
@@ -42,6 +45,7 @@ public class Entity : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         fx = GetComponent<EntityFX>();
         stats = GetComponent<CharacterStats>();
+        cd = GetComponent<CapsuleCollider2D>();
     }
     
     protected virtual void Update()
@@ -60,8 +64,8 @@ public class Entity : MonoBehaviour
     protected virtual IEnumerator HitKnockback()
     {
         isKnocked = true;
-        rb.velocity = new Vector2(knockbackDirection.x - facingDir, knockbackDirection.y);
-        yield return new WaitForSeconds(knockbackDuration);
+        rb.velocity = new Vector2(knockBackDirection.x - facingDir, knockBackDirection.y);
+        yield return new WaitForSeconds(knockBackDuration);
         isKnocked = false;
     }
     
@@ -125,5 +129,10 @@ public class Entity : MonoBehaviour
             sr.color = Color.clear;
         else
             sr.color = Color.white;
+    }
+
+    public virtual void Die()
+    {
+        
     }
 }

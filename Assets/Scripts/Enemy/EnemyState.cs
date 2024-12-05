@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyState : MonoBehaviour
 {
     protected EnemyStateMachine stateMachine;
-    protected  Enemy enemyBase;
+    protected Enemy enemyBase;
     protected Rigidbody2D rb;
 
     private string animBoolName;
@@ -36,6 +36,7 @@ public class EnemyState : MonoBehaviour
     public virtual void Exit()
     {
         enemyBase.anim.SetBool(animBoolName, false);
+        enemyBase.AssignLastAnimName(animBoolName);
     }
 
     public virtual void AnimationFinishTrigger()
