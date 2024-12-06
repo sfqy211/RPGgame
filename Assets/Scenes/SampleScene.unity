@@ -3555,11 +3555,26 @@ MonoBehaviour:
   strength:
     bassValue: 0
     modifiers: 
-  damage:
-    bassValue: 5
+  agility:
+    bassValue: 0
+    modifiers: 
+  intelligence:
+    bassValue: 0
+    modifiers: 
+  vitality:
+    bassValue: 0
     modifiers: 
   maxHealth:
     bassValue: 50
+    modifiers: 
+  armor:
+    bassValue: 0
+    modifiers: 
+  evasion:
+    bassValue: 0
+    modifiers: 
+  damage:
+    bassValue: 5
     modifiers: 
   currentHealth: 0
 --- !u!70 &1022972916
@@ -9929,11 +9944,26 @@ MonoBehaviour:
   strength:
     bassValue: 0
     modifiers: 
-  damage:
-    bassValue: 10
+  agility:
+    bassValue: 0
+    modifiers: 
+  intelligence:
+    bassValue: 0
+    modifiers: 
+  vitality:
+    bassValue: 0
     modifiers: 
   maxHealth:
-    bassValue: 50
+    bassValue: 1000
+    modifiers: 
+  armor:
+    bassValue: 20
+    modifiers: 
+  evasion:
+    bassValue: 0
+    modifiers: 
+  damage:
+    bassValue: 10
     modifiers: 
   currentHealth: 0
 --- !u!1 &1566687183

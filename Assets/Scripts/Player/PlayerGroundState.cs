@@ -34,7 +34,7 @@ public class PlayerGroundState : PlayerState
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            stateMachine.ChangeState(player.PrimaryAttackState);
+            stateMachine.ChangeState(player.primaryAttackState);
         }
 
         if (!player.IsGroundDetected())

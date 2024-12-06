@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Entity
@@ -36,7 +33,7 @@ public class Player : Entity
     public PlayerWallSlideState wallSlide { get; private set;}
     public PlayerWallJumpState wallJump { get; private set;}
     public PlayerDashState dashState { get; private set;}
-    public PlayerPrimaryAttackState PrimaryAttackState { get; private set;}
+    public PlayerPrimaryAttackState primaryAttackState { get; private set;}
     public PlayerCounterAttackState counterAttackState { get; private set;}
     public PlayerAimSwordState aimSword { get; private  set;}
     public  PlayerCatchSwordState catchSword { get; private  set;}
@@ -57,7 +54,7 @@ public class Player : Entity
         wallSlide = new PlayerWallSlideState(this, stateMachine, "WallSlide");
         wallJump  = new PlayerWallJumpState(this, stateMachine, "Jump");
         
-        PrimaryAttackState = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
+        primaryAttackState = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
         counterAttackState = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
         
         aimSword   = new PlayerAimSwordState(this, stateMachine, "AimSword");
