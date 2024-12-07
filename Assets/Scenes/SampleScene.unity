@@ -3553,7 +3553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength:
-    bassValue: 0
+    bassValue: 2
     modifiers: 
   agility:
     bassValue: 0
@@ -3564,6 +3564,15 @@ MonoBehaviour:
   vitality:
     bassValue: 0
     modifiers: 
+  damage:
+    bassValue: 13
+    modifiers: 
+  critChance:
+    bassValue: 99
+    modifiers: 
+  critPower:
+    bassValue: 150
+    modifiers: 
   maxHealth:
     bassValue: 50
     modifiers: 
@@ -3572,9 +3581,6 @@ MonoBehaviour:
     modifiers: 
   evasion:
     bassValue: 0
-    modifiers: 
-  damage:
-    bassValue: 5
     modifiers: 
   currentHealth: 0
 --- !u!70 &1022972916
@@ -9953,6 +9959,15 @@ MonoBehaviour:
   vitality:
     bassValue: 0
     modifiers: 
+  damage:
+    bassValue: 10
+    modifiers: 
+  critChance:
+    bassValue: 0
+    modifiers: 
+  critPower:
+    bassValue: 0
+    modifiers: 
   maxHealth:
     bassValue: 1000
     modifiers: 
@@ -9961,9 +9976,6 @@ MonoBehaviour:
     modifiers: 
   evasion:
     bassValue: 0
-    modifiers: 
-  damage:
-    bassValue: 10
     modifiers: 
   currentHealth: 0
 --- !u!1 &1566687183

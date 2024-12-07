@@ -7,18 +7,23 @@ public class CharacterStats : MonoBehaviour
     public Stat agility; // 敏捷：增加闪避率和暴击率
     public Stat intelligence; // 智慧：增加魔法伤害和魔法抗性
     public Stat vitality; // 活力：增加最大生命值
+
+    [Header("Offensive stats 攻击数值")] 
+    public Stat damage;
+    public Stat critChance; // 暴击率
+    public Stat critPower; // 暴击倍率
     
     [Header("Defensive stats 防御数值")]
     public Stat maxHealth;
     public Stat armor; // 防御力：减少伤害
     public Stat evasion; // 闪避值（灵敏度）
     
-    public Stat damage;
 
     [SerializeField]private int currentHealth;
 
     protected virtual void Start()
     {
+        critPower.SetDefaultValue(150); // 暴击倍率默认为1.5倍
         currentHealth = maxHealth.GetValue();
     }
 
@@ -26,10 +31,14 @@ public class CharacterStats : MonoBehaviour
     {
         if (TargetCanAvoidAttack(_targetStats))
             return;
-
-        TargetCanAvoidAttack(_targetStats);
+        
         int totalDamage = damage.GetValue() + strength.GetValue();
         
+        if(CanCrit())
+        {
+            totalDamage = CalculateCriticalDamage(totalDamage);
+        }
+
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
     }
@@ -45,7 +54,6 @@ public class CharacterStats : MonoBehaviour
             Die();
         }
     }
-
     protected virtual void Die()
     {
         // throw new NotImplementedException();
@@ -65,5 +73,18 @@ public class CharacterStats : MonoBehaviour
         totalDamage -= _targetStats.armor.GetValue();
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
         return totalDamage;
+    }
+    private bool CanCrit()
+    {
+        int totalCriticalChance = critChance.GetValue() + agility.GetValue();
+        if(Random.Range(0, 100) <= totalCriticalChance)
+            return true;
+        return false;
+    }
+    private int CalculateCriticalDamage(int _damage)
+    {
+        float totalCritPower = (critPower.GetValue() + strength.GetValue()) * .01f;
+        float critDamage = _damage * totalCritPower;
+        return Mathf.RoundToInt(critDamage);
     }
 }
