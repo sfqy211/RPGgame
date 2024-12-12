@@ -3582,6 +3582,21 @@ MonoBehaviour:
   evasion:
     bassValue: 0
     modifiers: 
+  magicResistance:
+    bassValue: 0
+    modifiers: 
+  fireDamage:
+    bassValue: 5
+    modifiers: 
+  iceDamage:
+    bassValue: 0
+    modifiers: 
+  lightningDamage:
+    bassValue: 0
+    modifiers: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
   currentHealth: 0
 --- !u!70 &1022972916
 CapsuleCollider2D:
@@ -9977,6 +9992,21 @@ MonoBehaviour:
   evasion:
     bassValue: 0
     modifiers: 
+  magicResistance:
+    bassValue: 1
+    modifiers: 
+  fireDamage:
+    bassValue: 0
+    modifiers: 
+  iceDamage:
+    bassValue: 0
+    modifiers: 
+  lightningDamage:
+    bassValue: 0
+    modifiers: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
   currentHealth: 0
 --- !u!1 &1566687183
 GameObject:
