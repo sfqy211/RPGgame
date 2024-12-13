@@ -3574,7 +3574,7 @@ MonoBehaviour:
     bassValue: 150
     modifiers: 
   maxHealth:
-    bassValue: 50
+    bassValue: 5000
     modifiers: 
   armor:
     bassValue: 0
@@ -3586,7 +3586,7 @@ MonoBehaviour:
     bassValue: 0
     modifiers: 
   fireDamage:
-    bassValue: 5
+    bassValue: 0
     modifiers: 
   iceDamage:
     bassValue: 0
@@ -9963,7 +9963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength:
-    bassValue: 0
+    bassValue: 2
     modifiers: 
   agility:
     bassValue: 0
@@ -9990,16 +9990,16 @@ MonoBehaviour:
     bassValue: 20
     modifiers: 
   evasion:
-    bassValue: 0
+    bassValue: 5
     modifiers: 
   magicResistance:
     bassValue: 1
     modifiers: 
   fireDamage:
-    bassValue: 0
+    bassValue: 20
     modifiers: 
   iceDamage:
-    bassValue: 0
+    bassValue: 4
     modifiers: 
   lightningDamage:
     bassValue: 0
