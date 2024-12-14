@@ -31,25 +31,27 @@ public class CharacterStats : MonoBehaviour
 
     private float ignitedTimer;
     private float chilledTimer;
-    private float shockTimer;
+    private float shockedTimer;
     
     private float ignitedDamageCooldown = .3f;
     private float ignitedDamageTimer;
     private int ignitedDamage;
 
-    [SerializeField] private int currentHealth;
+    public int currentHealth;
+
+    public System.Action onHealthChanged;
 
     protected virtual void Start()
     {
         critPower.SetDefaultValue(150); // 暴击倍率默认为1.5倍
-        currentHealth = maxHealth.GetValue();
+        currentHealth = GetMaxHealthValue();
     }
 
     protected virtual void Update()
     {
         ignitedTimer -= Time.deltaTime;
         chilledTimer -= Time.deltaTime;
-        shockTimer -= Time.deltaTime;
+        shockedTimer -= Time.deltaTime;
         
         ignitedDamageTimer -= Time.deltaTime;
         
@@ -57,17 +59,19 @@ public class CharacterStats : MonoBehaviour
             isIgnited = false;
         if(chilledTimer < 0)
             isChilled = false;
-        if(shockTimer < 0)
+        if(shockedTimer < 0)
             isShocked = false;
         
         if(ignitedDamageTimer < 0 && isIgnited)
         {
             Debug.Log("受到燃烧伤害" + ignitedDamage);
+            
+            DecreaseHealthBy(ignitedDamage);
+            
             currentHealth -= ignitedDamage;
             if(currentHealth < 0)
                 Die();
             ignitedDamageTimer = ignitedDamageCooldown;
-            
         }
     }
 
@@ -84,7 +88,7 @@ public class CharacterStats : MonoBehaviour
         }
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
-        // _targetStats.TakeDamage(totalDamage);
+        _targetStats.TakeDamage(totalDamage);
         DoMagicalDamage(_targetStats);
     }
 
@@ -135,11 +139,11 @@ public class CharacterStats : MonoBehaviour
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
 
-    private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicDamage)
+    private static int CheckTargetResistance(CharacterStats _targetStats, int _totalMagicDamage)
     {
-        totalMagicDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
-        totalMagicDamage = Mathf.Clamp(totalMagicDamage, 0, int.MaxValue);
-        return totalMagicDamage;
+        _totalMagicDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
+        _totalMagicDamage = Mathf.Clamp(_totalMagicDamage, 0, int.MaxValue);
+        return _totalMagicDamage;
     }
 
     public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
@@ -160,22 +164,27 @@ public class CharacterStats : MonoBehaviour
         if (_shock)
         {
             isShocked = _shock;
-            shockTimer = 2;
+            shockedTimer = 2;
         }
     }
 
     public void SetupIgniteDamage(int _damage) => ignitedDamage = _damage;
     
-    public virtual void TakeDamage(int _damage)
+    protected virtual void TakeDamage(int _damage)
     {
-        currentHealth -= _damage;
+        DecreaseHealthBy(_damage);
 
         Debug.Log(_damage);
 
         if (currentHealth < 0)
-        {
             Die();
-        }
+    }
+
+    protected virtual void DecreaseHealthBy(int _damage)
+    {
+        currentHealth -= _damage;
+        if (onHealthChanged != null)
+            onHealthChanged();
     }
 
     protected virtual void Die()
@@ -195,15 +204,15 @@ public class CharacterStats : MonoBehaviour
         return false;
     }
 
-    private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
+    private int CheckTargetArmor(CharacterStats _targetStats, int _totalDamage)
     {
         if(_targetStats.isChilled)
-            totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+            _totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
         else
-            totalDamage -= _targetStats.armor.GetValue();
+            _totalDamage -= _targetStats.armor.GetValue();
         
-        totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
-        return totalDamage;
+        _totalDamage = Mathf.Clamp(_totalDamage, 0, int.MaxValue);
+        return _totalDamage;
     }
 
     private bool CanCrit()
@@ -220,4 +229,7 @@ public class CharacterStats : MonoBehaviour
         float critDamage = _damage * totalCritPower;
         return Mathf.RoundToInt(critDamage);
     }
+
+    public int GetMaxHealthValue() => maxHealth.GetValue() + vitality.GetValue() * 5;
+    
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Entity : MonoBehaviour
 {
@@ -9,19 +8,19 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private  set;}
     public Rigidbody2D rb { get; private set;}
     public EntityFX fx { get; private set; } 
-    public SpriteRenderer sr { get; private set; }
+    // public SpriteRenderer sr { get; private set; }
+    private SpriteRenderer sr { get; set; }
     public CharacterStats stats { get; private set; }
     public CapsuleCollider2D cd { get; private set; }
 
     #endregion
     
-    [FormerlySerializedAs("knockBackDirection")]
-    [Header("KnockBack info")]
+    [Header("KnockBack info 击退设置")]
     [SerializeField] protected Vector2 knockBackDirection;
-    protected bool isKnocked;
+    private bool isKnocked;
     [SerializeField] protected float knockBackDuration;
     
-    [Header("Collision info")]
+    [Header("Collision info 碰撞设置")]
     public Transform attackCheck;
     public float attackCheckRadius;
     [SerializeField] protected Transform groundCheck;
@@ -31,8 +30,10 @@ public class Entity : MonoBehaviour
     [SerializeField] protected  LayerMask whatIsGround;
     
     public int facingDir { get; private set; } = 1;
-    protected bool facingRight = true;
-    
+    private bool facingRight = true;
+
+    public System.Action OnFlipped;
+
     protected virtual void Awake()
     {
         
@@ -58,10 +59,11 @@ public class Entity : MonoBehaviour
     public virtual void DamageEffect()
     {
         fx.StartCoroutine("FlashFX");
-        StartCoroutine("HitKnockback");
+        // StartCoroutine("HitKnockBack");
+        StartCoroutine(nameof(HitKnockBack));
     }
     
-    protected virtual IEnumerator HitKnockback()
+    protected virtual IEnumerator HitKnockBack()
     {
         isKnocked = true;
         rb.velocity = new Vector2(knockBackDirection.x - facingDir, knockBackDirection.y);
@@ -112,9 +114,12 @@ public class Entity : MonoBehaviour
         facingDir = -facingDir;
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
+
+        if(OnFlipped != null)
+            OnFlipped();
     }
 
-    public virtual void FlipController(float _x)
+    protected virtual void FlipController(float _x)
     {
         if (_x > 0 && !facingRight)
             Flip();
@@ -125,10 +130,7 @@ public class Entity : MonoBehaviour
 
     public void MakeTransparent(bool _transparent)
     {
-        if (_transparent)
-            sr.color = Color.clear;
-        else
-            sr.color = Color.white;
+        sr.color = _transparent ? Color.clear : Color.white;
     }
 
     public virtual void Die()

@@ -1,4 +1,3 @@
-
 public class EnemyStats : CharacterStats
 {
     private Enemy enemy;
@@ -9,7 +8,7 @@ public class EnemyStats : CharacterStats
         enemy = GetComponent<Enemy>();
     }
 
-    public override void TakeDamage(int _damage)
+    protected override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
         enemy.DamageEffect();
