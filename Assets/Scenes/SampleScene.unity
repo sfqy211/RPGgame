@@ -3805,6 +3805,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.15
   hitMat: {fileID: 2100000, guid: 9baa6844a9cecd54d8b7dbe2405dd11d, type: 2}
+  chillColor:
+  - {r: 0.5372549, g: 0.85490197, b: 1, a: 1}
+  - {r: 0.53396225, g: 0.85349584, b: 1, a: 1}
+  igniteColor:
+  - {r: 0.9924528, g: 0.5524029, b: 0.5524029, a: 1}
+  - {r: 1, g: 0.78431374, b: 0.78431374, a: 1}
+  shockColor:
+  - {r: 1, g: 0.9882353, b: 0.4509804, a: 1}
+  - {r: 0.98490566, g: 0.9767424, b: 0.75633323, a: 1}
 --- !u!114 &1022972915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3839,7 +3848,7 @@ MonoBehaviour:
     bassValue: 150
     modifiers: 
   maxHealth:
-    bassValue: 50
+    bassValue: 500
     modifiers: 
   armor:
     bassValue: 0
@@ -3862,6 +3871,7 @@ MonoBehaviour:
   isIgnited: 0
   isChilled: 0
   isShocked: 0
+  ailmentsDuration: 4
   currentHealth: 0
 --- !u!70 &1022972916
 CapsuleCollider2D:
@@ -10216,6 +10226,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.15
   hitMat: {fileID: 2100000, guid: 9baa6844a9cecd54d8b7dbe2405dd11d, type: 2}
+  chillColor:
+  - {r: 0.5372549, g: 0.85490197, b: 1, a: 1}
+  - {r: 0.53396225, g: 0.85349584, b: 1, a: 1}
+  igniteColor:
+  - {r: 0.9924528, g: 0.5524029, b: 0.5524029, a: 1}
+  - {r: 1, g: 0.78431374, b: 0.78431374, a: 1}
+  shockColor:
+  - {r: 1, g: 0.9882353, b: 0.4509804, a: 1}
+  - {r: 0.98490566, g: 0.9767424, b: 0.75633323, a: 1}
 --- !u!114 &1258312125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10250,7 +10269,7 @@ MonoBehaviour:
     bassValue: 0
     modifiers: 
   maxHealth:
-    bassValue: 100
+    bassValue: 500
     modifiers: 
   armor:
     bassValue: 20
@@ -10262,10 +10281,10 @@ MonoBehaviour:
     bassValue: 1
     modifiers: 
   fireDamage:
-    bassValue: 20
+    bassValue: 1
     modifiers: 
   iceDamage:
-    bassValue: 4
+    bassValue: 2
     modifiers: 
   lightningDamage:
     bassValue: 0
@@ -10273,6 +10292,7 @@ MonoBehaviour:
   isIgnited: 0
   isChilled: 0
   isShocked: 0
+  ailmentsDuration: 4
   currentHealth: 0
 --- !u!1 &1462912259
 GameObject:
