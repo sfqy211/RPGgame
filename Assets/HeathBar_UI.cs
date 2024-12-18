@@ -15,7 +15,7 @@ public class HeathBar_UI : MonoBehaviour
         myStats = GetComponentInParent<CharacterStats>();
         
         entity.OnFlipped += FlipUI;
-        myStats.onHealthChanged += UpdateHealthUI;
+        myStats.OnHealthChanged += UpdateHealthUI;
         
         UpdateHealthUI();
     }
@@ -29,6 +29,6 @@ public class HeathBar_UI : MonoBehaviour
     private void OnDisable()
     {
         entity.OnFlipped -= FlipUI;
-        myStats.onHealthChanged -= UpdateHealthUI;
+        myStats.OnHealthChanged -= UpdateHealthUI;
     }
 }

@@ -8,7 +8,7 @@ public class EnemyStats : CharacterStats
         enemy = GetComponent<Enemy>();
     }
 
-    protected override void TakeDamage(int _damage)
+    public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
         enemy.DamageEffect();
