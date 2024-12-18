@@ -55,6 +55,16 @@ public class Entity : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             InputLanguageManager.SwitchToEnglishInput();
     }
+
+    public virtual void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+        
+    }
+
+    protected virtual void ReturnDefaultSpeed()
+    {
+        anim.speed = 1;
+    }
     
     public virtual void DamageEffect()
     {

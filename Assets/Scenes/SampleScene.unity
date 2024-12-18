@@ -3863,7 +3863,7 @@ MonoBehaviour:
     bassValue: 0
     modifiers: 
   iceDamage:
-    bassValue: 0
+    bassValue: 2
     modifiers: 
   lightningDamage:
     bassValue: 0

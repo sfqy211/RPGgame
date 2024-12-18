@@ -1,27 +1,26 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Entity
 {
     [SerializeField]protected LayerMask whatIsPlayer;
     
-    [Header("Stunned info")]
+    [Header("Stunned info 眩晕信息")]
     public float stunDuration;
     public Vector2 stunDirection;
     protected bool canBeStunned;
     [SerializeField] protected GameObject counterImage;
     
     
-    [Header("Move info")] 
+    [Header("Move info 移动信息")] 
     public float moveSpeed;
     public float idleTime;
     public float battleTime;
     private float defaultMoveSpeed;
     
     
-    [Header("Attack info")]
+    [Header("Attack info 攻击信息")]
     public  float attackDistance;
     public float attackCooldown;
     [HideInInspector] public float lastTimeAttacked;
@@ -43,9 +42,21 @@ public class Enemy : Entity
         StateMachine.currentState.Update();
     }
 
-    public virtual void AssignLastAnimName(string _animBoolName)
+    public virtual void AssignLastAnimName(string _animBoolName) => lastAnimBoolName = _animBoolName;
+
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
-        lastAnimBoolName = _animBoolName;
+        moveSpeed *= (1 - _slowPercentage);
+        anim.speed *= (1 - _slowPercentage);
+        
+        Invoke(nameof(ReturnDefaultSpeed), _slowDuration);
+    }
+
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+
+        moveSpeed = defaultMoveSpeed;
     }
 
     public virtual void FreezeTime(bool _timeFrozen)

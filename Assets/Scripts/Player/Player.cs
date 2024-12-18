@@ -3,19 +3,22 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    [Header("Attack details")]
+    [Header("Attack details 攻击参数")]
     public Vector2[] attackMovement;
     public float counterAttackDuration = .2f;
     
     public bool isBusy { get; private set; }
-    [Header("Move info")]
+    [Header("Move info 移动信息")]
     public float moveSpeed = 12f;
     public float jumpForce;
-    public float swordReturnImpact; 
+    public float swordReturnImpact;
+    private float defaultMoveSpeed;
+    private float defaultJumpForce;
     
-    [Header("Dash info")]
+    [Header("Dash info 冲刺信息")]
     public float dashSpeed;
     public float dashDuration;
+    private float defaultDashSpeed;
     public float dashDir{ get; private set; }
     
     
@@ -61,7 +64,6 @@ public class Player : Entity
         catchSword = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
         blackHole  = new PlayerBlackholeState(this, stateMachine, "Jump");
         deadState  = new PlayerDeadState(this, stateMachine, "Die");
-        
     }
     
     protected override void Start()
@@ -71,6 +73,10 @@ public class Player : Entity
         skill = SkillManager.instance;
         
         stateMachine.Initialize(idleState);
+        
+        defaultMoveSpeed = moveSpeed;
+        defaultJumpForce = jumpForce;
+        defaultDashSpeed = dashSpeed;
     }
     
     protected override void Update()
@@ -82,10 +88,28 @@ public class Player : Entity
         if (Input.GetKeyDown(KeyCode.F))
             skill.crystal.CanUseSkill();
     }
-    
-    public void AssignNewSword(GameObject _newsword)
+
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
-        sword = _newsword;
+        moveSpeed *= (1 - _slowPercentage);
+        jumpForce *= (1 - _slowPercentage);
+        dashSpeed *= (1 - _slowPercentage);
+        anim.speed *= (1 - _slowPercentage);
+        Invoke(nameof(ReturnDefaultSpeed), _slowDuration);
+    }
+
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+        moveSpeed = defaultMoveSpeed;
+        jumpForce = defaultJumpForce;
+        dashSpeed = defaultDashSpeed;
+        
+    }
+
+    public void AssignNewSword(GameObject _newSword)
+    {
+        sword = _newSword;
     }
     public void CatchTheSword()
     {
