@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBlackholeState : PlayerState
 {
-    private float flyTime = .4f;
+    private readonly float flyTime = .4f;
     private bool skillUsed;
     private float defaultGravity;
 
@@ -27,7 +25,7 @@ public class PlayerBlackholeState : PlayerState
     {
         base.Exit();
         player.rb.gravityScale = defaultGravity;
-        player.MakeTransparent(false);
+        player.fx.MakeTransparent(false);
     }
     
     public override void Update()

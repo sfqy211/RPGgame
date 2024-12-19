@@ -1,15 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyState : MonoBehaviour
 {
     protected EnemyStateMachine stateMachine;
-    protected Enemy enemyBase;
+    private readonly Enemy enemyBase;
     protected Rigidbody2D rb;
 
-    private string animBoolName;
+    private readonly string animBoolName;
 
     protected float stateTimer;
     protected bool triggerCalled;

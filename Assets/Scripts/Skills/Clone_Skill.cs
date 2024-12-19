@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Clone_Skill : Skill
 {
-    [Header("Clone Info")]
+    [Header("Clone Info 克隆信息")]
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private float cloneDuration;
     [Space]
@@ -12,10 +12,10 @@ public class Clone_Skill : Skill
     [SerializeField] private bool creatCloneOnDashStart;
     [SerializeField] private bool creatCloneOnDashOver;
     [SerializeField] private bool canCreateCloneOnCounterAttack;
-    [Header("Clone can duplicate")]
+    [Header("Clone can duplicate 克隆可以复制")]
     [SerializeField] private bool canDuplicateClone;
     [SerializeField] private float chanceToDuplicate;
-    [Header("Crystal instead of clone")]
+    [Header("Crystal instead of clone 用水晶代替克隆")]
     public bool crystalInsteadOfClone;
     public void CreatClone(Transform _clonePosition, Vector3 _offset)
     {
@@ -26,7 +26,8 @@ public class Clone_Skill : Skill
         }
         GameObject newClone = Instantiate(clonePrefab);
         
-        newClone.GetComponent<Clone_Skill_Controller>().SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone, chanceToDuplicate);
+        newClone.GetComponent<Clone_Skill_Controller>().
+            SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone, chanceToDuplicate, player);
     }
 
     public void CreatCloneOnDashStart()

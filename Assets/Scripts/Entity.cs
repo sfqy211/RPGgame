@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb { get; private set;}
     public EntityFX fx { get; private set; } 
     // public SpriteRenderer sr { get; private set; }
-    private SpriteRenderer sr { get; set; }
+    // private SpriteRenderer sr { get; set; }
     public CharacterStats stats { get; private set; }
     public CapsuleCollider2D cd { get; private set; }
 
@@ -41,7 +41,7 @@ public class Entity : MonoBehaviour
     
     protected virtual void Start()
     {
-        sr = GetComponentInChildren<SpriteRenderer>();
+        // sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         fx = GetComponent<EntityFX>();
@@ -66,16 +66,12 @@ public class Entity : MonoBehaviour
         anim.speed = 1;
     }
     
-    public virtual void DamageEffect()
-    {
-        fx.StartCoroutine(nameof(EntityFX.FlashFX));
-        StartCoroutine(nameof(HitKnockBack));
-    }
-    
+    public virtual void DamageImpact() => StartCoroutine(nameof(HitKnockBack));
+
     protected virtual IEnumerator HitKnockBack()
     {
         isKnocked = true;
-        rb.velocity = new Vector2(knockBackDirection.x - facingDir, knockBackDirection.y);
+        rb.velocity = new Vector2(knockBackDirection.x * -facingDir, knockBackDirection.y);
         yield return new WaitForSeconds(knockBackDuration);
         isKnocked = false;
     }
@@ -136,12 +132,6 @@ public class Entity : MonoBehaviour
             Flip();
     }
     #endregion
-
-    public void MakeTransparent(bool _transparent)
-    {
-        sr.color = _transparent ? Color.clear : Color.white;
-    }
-
     public virtual void Die()
     {
         

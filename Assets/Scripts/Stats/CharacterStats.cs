@@ -31,15 +31,15 @@ public class CharacterStats : MonoBehaviour
     private float chilledTimer;
     private float shockedTimer;
 
-    private float ignitedDamageCooldown = .3f;
+    private readonly float ignitedDamageCooldown = .3f;
     private float ignitedDamageTimer;
     private int ignitedDamage;
-    private int shockDamage;
     [SerializeField] private GameObject shockStrikePrefab;
-
+    private int shockDamage;
     public int currentHealth;
 
     public System.Action OnHealthChanged;
+    protected bool isDead;
 
     protected virtual void Start()
     {
@@ -64,18 +64,11 @@ public class CharacterStats : MonoBehaviour
         if (shockedTimer < 0)
             isShocked = false;
 
-        if (ignitedDamageTimer < 0 && isIgnited)
-        {
-            Debug.Log("受到燃烧伤害" + ignitedDamage);
-
-            DecreaseHealthBy(ignitedDamage);
-
-            currentHealth -= ignitedDamage;
-            if (currentHealth < 0)
-                Die();
-            ignitedDamageTimer = ignitedDamageCooldown;
-        }
+        if(isIgnited)
+            ApplyIgniteDamage();
     }
+
+    
 
     public virtual void DoDamage(CharacterStats _targetStats)
     {
@@ -91,9 +84,10 @@ public class CharacterStats : MonoBehaviour
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
-        DoMagicalDamage(_targetStats);
+        // DoMagicalDamage(_targetStats);
     }
 
+    #region Magical damage and ailments 元素伤害和状态区域
     public virtual void DoMagicalDamage(CharacterStats _targetStats)
     {
         int _fireDamage = fireDamage.GetValue();
@@ -108,6 +102,19 @@ public class CharacterStats : MonoBehaviour
         if (Mathf.Max(_fireDamage, _iceDamage, _lightningDamage) <= 0)
             return;
 
+        AttemptToApplyAilments(_targetStats, _fireDamage, _iceDamage, _lightningDamage);
+    }
+    public void ApplyShock(bool _shock)
+    {
+        if(isShocked)
+            return;
+        shockedTimer = ailmentsDuration;
+        isShocked = _shock;
+        // fx.ShockFxFor(ailmentsDuration);
+        fx.FxFor(fx.ShockColorFx, ailmentsDuration);
+    }
+    private void AttemptToApplyAilments(CharacterStats _targetStats, int _fireDamage, int _iceDamage, int _lightningDamage)
+    {
         bool canApplyIgnite = _fireDamage > _iceDamage && _fireDamage > _lightningDamage;
         bool canApplyChill = _iceDamage > _fireDamage && _iceDamage > _lightningDamage;
         bool canApplyShock = _lightningDamage > _fireDamage && _lightningDamage > _iceDamage;
@@ -147,15 +154,7 @@ public class CharacterStats : MonoBehaviour
 
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
-
-    private static int CheckTargetResistance(CharacterStats _targetStats, int _totalMagicDamage)
-    {
-        _totalMagicDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
-        _totalMagicDamage = Mathf.Clamp(_totalMagicDamage, 0, int.MaxValue);
-        return _totalMagicDamage;
-    }
-
-    public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
+    private void ApplyAilments(bool _ignite, bool _chill, bool _shock)
     {
         bool canApplyIgnite = !isIgnited && !isChilled && !isShocked;
         bool canApplyChill = !isIgnited && !isChilled && !isShocked;
@@ -194,17 +193,6 @@ public class CharacterStats : MonoBehaviour
             }
         }
     }
-
-    public void ApplyShock(bool _shock)
-    {
-        if(isShocked)
-            return;
-        shockedTimer = ailmentsDuration;
-        isShocked = _shock;
-        // fx.ShockFxFor(ailmentsDuration);
-        fx.FxFor(fx.ShockColorFx, ailmentsDuration);
-    }
-
     private void HitNearestTargetWithShockStrike()
     {
         // 找到最接近的敌人，及时打击，释放电击动画
@@ -236,32 +224,51 @@ public class CharacterStats : MonoBehaviour
                 .Setup(shockDamage, closestEnemy.GetComponent<CharacterStats>());
         }
     }
+    private void ApplyIgniteDamage()
+    {
+        if (ignitedDamageTimer < 0)
+        {
+            DecreaseHealthBy(ignitedDamage);
 
-    public void SetupIgniteDamage(int _damage) => ignitedDamage = _damage;
-    public void SetupShockStrikeDamage(int _damage) => shockDamage = _damage;
+            currentHealth -= ignitedDamage;
+            if (currentHealth < 0 && !isDead)
+                Die();
+            ignitedDamageTimer = ignitedDamageCooldown;
+        }
+    }
+    private void SetupIgniteDamage(int _damage) => ignitedDamage = _damage;
+    private void SetupShockStrikeDamage(int _damage) => shockDamage = _damage;
+    #endregion
 
     public virtual void TakeDamage(int _damage)
     {
         DecreaseHealthBy(_damage);
 
-        Debug.Log(_damage);
+        Debug.Log("造成伤害:" + _damage);
+        GetComponent<Entity>().DamageImpact();
+        fx.StartCoroutine(nameof(EntityFX.FlashFX));
 
-        if (currentHealth < 0)
+        if (currentHealth < 0 && !isDead)
             Die();
     }
-
     protected virtual void DecreaseHealthBy(int _damage)
     {
         currentHealth -= _damage;
         if (OnHealthChanged != null)
             OnHealthChanged();
     }
-
     protected virtual void Die()
     {
-        // throw new NotImplementedException();
+        isDead = true;
     }
 
+    #region Stat calculations 计算区域
+    private int CheckTargetResistance(CharacterStats _targetStats, int _totalMagicDamage)
+    {
+        _totalMagicDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
+        _totalMagicDamage = Mathf.Clamp(_totalMagicDamage, 0, int.MaxValue);
+        return _totalMagicDamage;
+    }
     private bool TargetCanAvoidAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + agility.GetValue();
@@ -301,4 +308,5 @@ public class CharacterStats : MonoBehaviour
     }
 
     public int GetMaxHealthValue() => maxHealth.GetValue() + vitality.GetValue() * 5;
+    #endregion
 }
