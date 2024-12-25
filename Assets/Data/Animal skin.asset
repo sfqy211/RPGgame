@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c7b0fcedf70b204fb22d6324196d14d, type: 3}
-  m_Name: Animal_Skin
+  m_Name: Animal skin
   m_EditorClassIdentifier: 
   itemName: Animal_Skin
   icon: {fileID: -973012730, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
